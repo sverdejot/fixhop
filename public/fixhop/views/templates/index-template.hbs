@@ -1,0 +1,10 @@
+{{> navbar-partial}}
+<div class="container">
+    <div class="display-4 mt-3 text-center">Más buscados</div>
+    <div class="row">
+        {{#each products}}
+            {{> product-partial this}}
+        {{/each}}
+    </div>
+</div>
+{{> footer-partial}}
