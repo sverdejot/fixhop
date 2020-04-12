@@ -1,0 +1,12 @@
+.bg-cover {
+  background-size: cover;
+  color: white;
+  background-position: center center;
+  position: relative;
+  z-index: -2;
+  background-image: url('/images/background.jpg');
+}
+
+a {
+  color: #00B7FF;
+}

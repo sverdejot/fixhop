@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <title>Fixhop</title>
+    <link rel="icon" type="image/ico" href="images/logo.svg" />
+    <style>
+        .bg-cover {
+            background-size: cover;
+            color: white;
+            background-position: center center;
+            position: relative;
+            z-index: -2;
+            background-image: url('/images/background.jpg');
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Fixhop
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSuperior"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSuperior">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Bicicletas</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="componentesDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Componentes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="componentesDropdown">
+                        <a class="dropdown-item" href="#">Cuadros</a>
+                        <a class="dropdown-item" href="#">Horquillas</a>
+                        <a class="dropdown-item" href="#">Ruedas</a>
+                        <a class="dropdown-item" href="#">Dirección</a>
+                        <a class="dropdown-item" href="#">Sillines y tijas</a>
+                        <a class="dropdown-item" href="#">Transmisión</a>
+                        <a class="dropdown-item" href="#">Frenos</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Accesorios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Ropa y equipamiento</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: tomato;">Rebajas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Novedades</a>
+                </li>
+            </ul>
+            <div class="dropdown-divider"></div>
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="dropdown01"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mi cesta&nbsp;</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Ver</a>
+                        <a class="dropdown-item" href="#">Procesar pedido</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="dropdown01"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario&nbsp;</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target=#signupModal>Registro</a>
+                        <a class="dropdown-item" href="#">Perfil</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#signinModal">Iniciar
+                            sesión</a>
+                        <a class="dropdown-item" href="#">Cerrar sesión</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="jumbotron rounded-0 bg-cover text-light">
+            <div class="container text-center mt-5">
+                <div class="row">
+                    <div class="col">
+                        <img src="images/logo.svg" height="200px" width="200px" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h1 class="display-3">fixhop</h1>
+                        <p>Fixed gear bikes & accesories</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col col-xl-9 col-md-12">
+                    <div class="card mb-3">
+                        <h3 class="card-header text-center">Perfil</h3>
+                        <div class="card-body mb-3">
+                            <div class="card-text">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col col-md-3 col-sm-12 text-center mb-3">
+                                            <svg class="bi bi-person-bounding-box" width="200px" height="200px"
+                                                viewBox="0 0 16 16" fill="currentColor"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.5 1a.5.5 0 00-.5.5v3a.5.5 0 01-1 0v-3A1.5 1.5 0 011.5 0h3a.5.5 0 010 1h-3zM11 .5a.5.5 0 01.5-.5h3A1.5 1.5 0 0116 1.5v3a.5.5 0 01-1 0v-3a.5.5 0 00-.5-.5h-3a.5.5 0 01-.5-.5zM.5 11a.5.5 0 01.5.5v3a.5.5 0 00.5.5h3a.5.5 0 010 1h-3A1.5 1.5 0 010 14.5v-3a.5.5 0 01.5-.5zm15 0a.5.5 0 01.5.5v3a1.5 1.5 0 01-1.5 1.5h-3a.5.5 0 010-1h3a.5.5 0 00.5-.5v-3a.5.5 0 01.5-.5z"
+                                                    clip-rule="evenodd" />
+                                                <path fill-rule="evenodd"
+                                                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div class="col col-md-9 col-sm-12 text-center mb-3">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="nameLabel">Nombre</span>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" id="name"
+                                                    aria-describedby="nameLabel" readonly>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="addressLabel">Dirección</span>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" id="address"
+                                                    aria-describedby="addressLabel" readonly>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="emailLabel">Correo
+                                                        electrónico</span>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" id="email"
+                                                    aria-describedby="emailLabel" readonly>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="birthLabel">Fecha de
+                                                        nacimiento</span>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" id="birthdate"
+                                                    aria-describedby="birthLabel" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col">
+                                        <h2 class="mt-2 mb-3">Lista de pedidos</h2>
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <thead>
+                                                    <th scope="col">Fecha confirmación</th>
+                                                    <th scope="col">Nº pedido</th>
+                                                    <th scope="col">Subtotal</th>
+                                                    <th scope="col"></th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">30/03/2020</th>
+                                                        <td>33098474</td>
+                                                        <td>19.99€</td>
+                                                        <td><button class="btn btn-outline-info">Detalles</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <br /><br />
+
+    <footer class="bg-white fixed-bottom border-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col text-center text-dark pt-2">
+                    <p><small>fixhop: fixed gear & accesories &copy; 2020 fixhop. All Right Reserved.</small></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
