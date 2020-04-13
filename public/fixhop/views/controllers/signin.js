@@ -18,7 +18,6 @@ Controller.controllers.signin.signin_clicked = function() {
         email: $("#userEmail").val(),
         password: $("#userPassword").val()
     }
-    console.log(credentials);
 
     Model.signin(credentials)
         .then(function (result) {

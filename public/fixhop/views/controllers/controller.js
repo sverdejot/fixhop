@@ -18,7 +18,11 @@ Controller.router.route = function() {
     else if (matching = path.match(/^\/fixhop\/views\/signin$/)) {
         Controller.controllers.signin.refresh();
     }
-    else {
+    else if (matching = path.match(/^\/fixhop\/views\/signup$/)) {
+        Controller.controllers.signup.refresh();
+    }
+    else
+    {
         console.error('controller.js: route() - Page not found')
     }
 }

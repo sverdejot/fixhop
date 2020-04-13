@@ -82,7 +82,10 @@ Model.user = null;
 
 Model.getLoggedUser = function () {
     return new Promise(function (resolve, reject) {
-        resolve(Model.users[Model.user]);
+        for (let user of Model.users) {
+            if (user.id == Model.user) resolve(user);
+        }
+        resolve(null);
     });
 };
 
@@ -104,7 +107,10 @@ Model.getProduct = function (product_id) {
 
 Model.getShoppingCart = function () {
     return new Promise(function (resolve, reject) {
-        (Model.user != null) ? resolve(Model.users[Model.user].shopping_cart) : resolve({ items: [] });
+        Model.getLoggedUser()
+            .then(function(user) {
+                (user != null) ? resolve(user.shopping_cart) : resolve({ items: [] });
+            })
     });
 };
 
@@ -166,5 +172,46 @@ Model.signin = function(credentials) {
             }
         }
         reject('User not found or invalid credentials')
+    });
+};
+
+Model.signout = function() {
+    return new Promise(function (resolve, reject) {
+        Model.user = null;
+        resolve(Model.user);
+    });
+}
+
+Model.signup = function(new_user) {
+    return new Promise(function (resolve, reject) {
+        var isEmpty = Object.values(new_user).every(input_field => (input_field === null || input_field === ''));
+        var passwordNotMatching = (new_user.password == new_user.repeatPassword);
+
+        if (isEmpty || passwordNotMatching) {
+            reject('Todos los campos deben ser rellenados y las contraseñas deben coincidir.')
+        } else {
+            for (let user of Model.users) {
+                if (new_user.email == user.email) reject('Ya hay un usuario registrado para este correo electrónico.')
+            }
+            let user = {
+                id: Date.now(),
+                name: new_user.name,
+                surname: new_user.surname,
+                email: new_user.email,
+                birth: new_user.birth,
+                address: new_user.address,
+                password: new_user.password,
+                orders: [],
+                shopping_cart: {
+                    total: 0,
+                    subtotal: 0,
+                    tax: 1.12,
+                    items: []
+                }
+            }           
+
+            Model.users.push(user);
+            resolve('Usuario registrado satisfactoriamente.')
+        }
     });
 }

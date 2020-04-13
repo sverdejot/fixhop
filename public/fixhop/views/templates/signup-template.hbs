@@ -1,0 +1,51 @@
+{{> message-partial}}
+{{> navbar-partial user=user cartItemCount=cartItemCount}}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col col-xl-6 col-md-9">
+            <div class="card">
+                <h3 class="card-header text-center">Registro</h3>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-sm-12 mt-3">
+                                <input type="text" class="form-control" placeholder="Nombre" id="name">
+                            </div>
+                            <div class="col col-md-6 col-sm-12 mt-3">
+                                <input type="text" class="form-control" placeholder="Apellidos" id="surname">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mt-3">
+                                <input type="text" class="form-control" placeholder="Dirección" id="address">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-sm-12 mt-3">
+                                <input type="email" class="form-control" placeholder="Correo electrónico" id="email">
+                            </div>
+                            <div class="col-12 col-md-6 col-sm-12 mt-3">
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-sm-12 mt-3">
+                                <input type="password" class="form-control" placeholder="Contraseña" id="password">
+                            </div>
+                            <div class="col-12 col-md-6 col-sm-12 mt-3">
+                                <input type="password" class="form-control" placeholder="Repita su contraseña" id="repeatPassword">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center mt-3">
+                                <button type="submit" class="btn btn-outline-secondary btn-lg" onclick="Controller.controllers.signup.signup_clicked(event)">Registrarse</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{> footer-partial}}
