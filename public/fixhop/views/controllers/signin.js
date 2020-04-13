@@ -24,7 +24,9 @@ Controller.controllers.signin.signin_clicked = function() {
         .then(function (result) {
             Controller.messages.pushInfo(result);
         })
-        
+        .catch(function(err) {
+            Controller.messages.pushError(err);
+        })
         .finally(function() {
             Controller.router.go('index');
         });
