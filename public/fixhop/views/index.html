@@ -32,6 +32,7 @@
     <script src="/fixhop/views/view/view.js" type="text/javascript"></script>
     <script src="/fixhop/views/controllers/controller.js" type="text/javascript"></script>
     <script src="/fixhop/views/controllers/index.js" type="text/javascript"></script>
+    <script src="/fixhop/views/renderers/index.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -39,10 +40,7 @@
 
             Promise.all(promises)
                 .then(function () {
-                    Model.getProducts()
-                        .then(function (products) {
-                            View.renderTemplate('index-template', 'contents', {products: products})
-                        })
+                    Controller.router.route();
                 })
         })
     </script>

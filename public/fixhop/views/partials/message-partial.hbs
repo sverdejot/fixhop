@@ -1,0 +1,14 @@
+{{#if errors}}
+    <ul>
+        {{#each errors}}
+            <li style="color:red;">{{this}}</li>
+        {{/each}}
+    </ul>
+{{/if}}
+{{#if infos}}
+    <ul>
+        {{#each infos}}
+            <li style="color:green;">{{this}}</li>
+        {{/each}}
+    </ul>
+{{/if}}
