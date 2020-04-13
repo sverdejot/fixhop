@@ -15,9 +15,17 @@ Controller.router.route = function() {
     if (matching = path.match(/^\/fixhop\/views\/index$/)) {
         Controller.controllers.index.refresh();
     }
+    else if (matching = path.match(/^\/fixhop\/views\/signin$/)) {
+        Controller.controllers.signin.refresh();
+    }
     else {
         console.error('controller.js: route() - Page not found')
     }
+}
+
+Controller.router.go = function (url) {
+    history.pushState(null, '', url);
+    Controller.router.route();
 }
 
 Controller.messages.pushError = function (error) {

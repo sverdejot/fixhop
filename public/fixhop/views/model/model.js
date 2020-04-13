@@ -59,6 +59,26 @@ Model.products = [
     }
 ];
 
+Model.users = [
+    {
+        name: 'Samuel',
+        surname: 'Verdejo de Toro',
+        email: 'samuel.verdejo@alu.uclm.es',
+        birth: '04/03/1998',
+        address: 'Paseo de la Ilustración, 1, 2ºC',
+        password: '1234',
+        orders: [],
+        shopping_cart: {
+            total: 0,
+            subtotal: 0,
+            tax: 1.21,
+            items: []
+        }
+    }
+]
+
+Model.user = 0;
+
 Model.getProducts = function() {
     return new Promise(function (resolve, reject) {
         setTimeout(function() {
@@ -66,3 +86,53 @@ Model.getProducts = function() {
         }, 1000);
     })
 };
+
+Model.getProduct = function(product_id) {
+    return new Promise(function (resolve, reject) {
+        for (let product of Model.products) {
+            if (product.id == product_id) resolve(product);
+        }
+    });
+};
+
+Model.getShoppingCart = function() {
+    return new Promise(function (resolve, reject) {
+        resolve(Model.users[Model.user].shopping_cart)
+    });
+};
+
+Model.addToCart = function(product_id) {
+    return new Promise(function(resolve, reject) {
+        var promises = [Model.getProduct(product_id), Model.getShoppingCart()]
+
+        Promise.all(promises)
+            .then(function(result) {
+                var product = result[0];
+                var shopping_cart = result[1];
+
+                for (let item of shopping_cart.items) {
+                    if (item.product.id == product.id) {
+                        ++item.qty;
+                        item.total += product.price;
+                        var already_added = true;                        
+                        break;
+                    }
+                }
+
+                if (!already_added) {
+                    shopping_cart.items.push({
+                        product: product,
+                        qty: 1,
+                        total: product.price,
+                        total: product.price
+                    })
+                }
+
+                shopping_cart.subtotal += product.price;
+                shopping_cart.total = shopping_cart.subtotal * shopping_cart.tax;
+
+                resolve(shopping_cart)
+            })
+    });
+};
+

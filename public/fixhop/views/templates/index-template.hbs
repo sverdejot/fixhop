@@ -1,9 +1,10 @@
+{{> message-partial}}
 {{> navbar-partial}}
 <div class="container">
     <div class="display-4 mt-3 text-center">Más buscados</div>
     <div class="row">
         {{#each products}}
-            {{> product-partial this}}
+            {{> product-partial this addToCart_onclick="Controller.controllers.index.addToCart_clicked"}}
         {{/each}}
     </div>
 </div>
