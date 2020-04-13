@@ -1,10 +1,13 @@
 Controller.controllers.index = {};
 
 Controller.controllers.index.refresh = function() {
-    var context = {};
-    Model.getProducts()
-        .then(function(products) {
-            context.products = products;
+    var promises = [Model.getLoggedUser(), Model.cartItemCount(), Model.getProducts()];
+    Promise.all(promises)
+        .then(function(result) {
+            context = {};
+            context.user = result[0];
+            context.cartItemCount = result[1];
+            context.products = result[2];
             View.renderer.index.render(context);
         })
         .catch(function (err) {
@@ -16,14 +19,11 @@ Controller.controllers.index.addToCart_clicked = function (event, product_id) {
     Model.addToCart(product_id)
         .then(function(result) {
             Controller.messages.pushInfo(result);
-            $('#messagesModal').modal().find('.modal-body').text('Producto añadido satisfactoriamente');
         })
-        /*
         .catch(function (err) {
-            $('#messagesModal').modal().find('.modal-body').text('Se ha producido un error al añadir el producto: ' + err);
             Controller.messages.pushInfo(err);
-        })*/
+        })
         .finally(function() {
-            $('#messagesModal').modal('show');
+            Controller.controllers.index.refresh();
         })
 }

@@ -61,6 +61,7 @@ Model.products = [
 
 Model.users = [
     {
+        id: 0,
         name: 'Samuel',
         surname: 'Verdejo de Toro',
         email: 'samuel.verdejo@alu.uclm.es',
@@ -77,17 +78,23 @@ Model.users = [
     }
 ]
 
-Model.user = 0;
+Model.user = null;
 
-Model.getProducts = function() {
+Model.getLoggedUser = function () {
     return new Promise(function (resolve, reject) {
-        setTimeout(function() {
+        resolve(Model.users[Model.user]);
+    });
+};
+
+Model.getProducts = function () {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
             resolve(Model.products);
         }, 1000);
     })
 };
 
-Model.getProduct = function(product_id) {
+Model.getProduct = function (product_id) {
     return new Promise(function (resolve, reject) {
         for (let product of Model.products) {
             if (product.id == product_id) resolve(product);
@@ -95,18 +102,32 @@ Model.getProduct = function(product_id) {
     });
 };
 
-Model.getShoppingCart = function() {
+Model.getShoppingCart = function () {
     return new Promise(function (resolve, reject) {
-        resolve(Model.users[Model.user].shopping_cart)
+        (Model.user != null) ? resolve(Model.users[Model.user].shopping_cart) : resolve({ items: [] });
     });
 };
 
-Model.addToCart = function(product_id) {
-    return new Promise(function(resolve, reject) {
+Model.cartItemCount = function () {
+    return new Promise(function (resolve, reject) {
+        Model.getShoppingCart()
+            .then(function (cart) {
+                var cartItemCount = 0;
+                for (let item of cart.items) {
+                    cartItemCount += item.qty;
+                };
+
+                resolve(cartItemCount);
+            });
+    });
+};
+
+Model.addToCart = function (product_id) {
+    return new Promise(function (resolve, reject) {
         var promises = [Model.getProduct(product_id), Model.getShoppingCart()]
 
         Promise.all(promises)
-            .then(function(result) {
+            .then(function (result) {
                 var product = result[0];
                 var shopping_cart = result[1];
 
@@ -114,10 +135,10 @@ Model.addToCart = function(product_id) {
                     if (item.product.id == product.id) {
                         ++item.qty;
                         item.total += product.price;
-                        var already_added = true;                        
+                        var already_added = true;
                         break;
                     }
-                }
+                };
 
                 if (!already_added) {
                     shopping_cart.items.push({
@@ -126,7 +147,7 @@ Model.addToCart = function(product_id) {
                         total: product.price,
                         total: product.price
                     })
-                }
+                };
 
                 shopping_cart.subtotal += product.price;
                 shopping_cart.total = shopping_cart.subtotal * shopping_cart.tax;
@@ -136,3 +157,14 @@ Model.addToCart = function(product_id) {
     });
 };
 
+Model.signin = function(credentials) {
+    return new Promise(function (resolve, reject) {
+        for (let user of Model.users) {
+            if (user.email == credentials.email && user.password == credentials.password) {
+                Model.user = user.id;
+                resolve(Model.user);
+            }
+        }
+        reject('User not found or invalid credentials')
+    });
+}
