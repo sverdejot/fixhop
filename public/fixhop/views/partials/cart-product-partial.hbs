@@ -1,0 +1,17 @@
+<tr>
+    <th scope="row">{{product.name}}</th>
+    <td>{{qty}}</td>
+    <td>{{formatPrice product.price}}</td>
+    <td>{{formatPrice total}}</td>
+    <td>
+        <div class="dropdown">
+            <button class="btn btn-danger dropdown-toggle" type="button" id="productDropdown" data-toggle="dropdown">
+                Eliminar producto
+            </button>
+            <div class="dropdown-menu" aria-labelledby="productDropdown">
+                <a class="dropdown-item" href="#" onclick="{{removeOneProduct_onclick}}(event, {{product.id}})">Eliminar uno</a>
+                <a class="dropdown-item" href="#" onclick="{{removeAllProducts_onclick}}(event, {{product.id}})">Eliminar todos</a>
+            </div>
+        </div>
+    </td>
+</tr>

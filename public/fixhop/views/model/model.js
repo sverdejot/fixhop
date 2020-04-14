@@ -151,14 +151,14 @@ Model.addToCart = function (product_id) {
                         product: product,
                         qty: 1,
                         total: product.price,
-                        total: product.price
+                        subtotal: product.price
                     })
                 };
 
                 shopping_cart.subtotal += product.price;
                 shopping_cart.total = shopping_cart.subtotal * shopping_cart.tax;
 
-                resolve(shopping_cart)
+                resolve(shopping_cart);
             })
     });
 };
@@ -205,7 +205,7 @@ Model.signup = function(new_user) {
                 shopping_cart: {
                     total: 0,
                     subtotal: 0,
-                    tax: 1.12,
+                    tax: 1.21,
                     items: []
                 }
             }           
@@ -213,5 +213,44 @@ Model.signup = function(new_user) {
             Model.users.push(user);
             resolve('Usuario registrado satisfactoriamente.')
         }
+    });
+};
+
+Model.removeOneProduct = function(product_id) {
+    return new Promise(function(resolve, reject) {
+        Model.getShoppingCart()
+            .then(function(cart) {
+                for (let item of cart.items) {
+                    if (item.product.id == product_id) {
+                        if (item.qty == 1) {
+                            cart.items = cart.items.filter(_item => { return _item.product.id != product_id});
+                        } else {
+                            item.qty -= 1;
+                            item.total -= product.price;                            
+                        }
+                        cart.subtotal -= item.product.price;
+                        cart.total = cart.subtotal * cart.tax;
+                        resolve('Producto eliminado satisfactoriamente')
+                    }
+                }
+                reject('Producto no encontrado')
+            })
+    });
+};
+
+Model.removeAllProduct = function(product_id) {
+    return new Promise(function(resolve, reject) {
+        Model.getShoppingCart()
+            .then(function(cart) {
+                for (let item of cart.items) {
+                    if (item.product.id == product_id) {
+                        cart.subtotal -= (item.product.price * item.qty);
+                        cart.total = cart.subtotal * cart.tax;
+                        break;
+                    }
+                }
+                cart.items = cart.items.filter(_item => { return _item.product.id != product_id });
+                resolve('Producto eliminado satisfactoriamente')                
+            })
     });
 }

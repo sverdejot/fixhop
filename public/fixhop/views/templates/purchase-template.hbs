@@ -1,0 +1,84 @@
+{{> message-partial}}
+{{> navbar-partial user=user cartItemCount=cartItemCount}}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col col-xl-9 col-md-12">
+            <div class="card mb-3">
+                <h3 class="card-header text-center">Revisar pedido</h3>
+                <div class="card-body mb-3">
+                    <div class="card-text">
+                        <div class="row mt-3">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="orderDateLabel">Fecha</span>
+                                    </div>
+                                    <input type="text" class="form-control bg-white" id="orderDate"
+                                        aria-describedby="orderDateLabel" placeholder="dd/mm/aaaa" readonly>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="deliverAddressLabel">Dirección de
+                                            envío</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="deliverAddress"
+                                        aria-describedby="deliverAddressLabel">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="cardNumberLabel">Nº de tarjeta</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="deliverAddress"
+                                        aria-describedby="cardNumberLabel">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="cardHolderLabel">Titular de la
+                                            tarjeta</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="cardHolder"
+                                        aria-describedby="cardHolderLabel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row text-center mb-3">
+                        <div class="col">
+                            <h2 class="mt-2 mb-4">Lista de productos</h2>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Precio unitario</th>
+                                        <th scope="col">Total</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Leader 721</th>
+                                            <td>1</td>
+                                            <td>595.95€</td>
+                                            <td>595.95€</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top my-3"></div>
+                    <div class="row justify-content-end mb-3 mr-3">
+                        <div class="col text-right">
+                            <h3>Subtotal: 595.95€</h3>
+                            <h3>IVA: 125.15€</h3>
+                            <h3>Total: 721.10€</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> footer-partial}}

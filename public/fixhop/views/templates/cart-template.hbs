@@ -1,0 +1,55 @@
+{{> message-partial}}
+{{> navbar-partial user=user cartItemCount=cartItemCount}}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col col-xl-9 col-md-12">
+            <div class="card mb-3">
+                <h3 class="card-header text-center">Cesta</h3>
+                <div class="card-body mb-3">
+                    <div class="card-text">
+                        <div class="row text-center mb-3">
+                            <div class="col">
+                                <div class="row mt-3 mb-5 mr-3">
+                                    <div class="col text-right">
+                                        <h2>Total: {{formatPrice cart.total}}</h2>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Precio unitario</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col"></th>
+                                        </thead>
+                                        <tbody>
+                                            {{#each cart.items}}
+                                            {{> cart-product-partial this removeOneProduct_onclick="Controller.controllers.cart.removeOneProduct_onclick" removeAllProducts_onclick="Controller.controllers.cart.removeAllProducts_onclick"}}
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top my-3"></div>
+                        <div class="row justify-content-end mb-3 mr-3">
+                            <div class="col text-right">
+                                <h3>Subtotal: {{formatPrice cart.subtotal}}</h3>
+                                <h3>IVA: {{cart.tax}}</h3>
+                                <h3>Total: {{formatPrice cart.total}}</h3>
+                            </div>
+                        </div>
+                        <div class="border-top my-3"></div>
+                        <div class="row mt-3">
+                            <div class="col text-center">
+                                <button class="btn btn-outline-success" onclick="Controller.controllers.cart.proceedToCheckout_onclick(event)">Proceder al pago</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{> footer-partial}}

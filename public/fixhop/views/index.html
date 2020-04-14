@@ -38,10 +38,12 @@
     <script src="/fixhop/views/controllers/navbar.js" type="text/javascript"></script>
     <script src="/fixhop/views/controllers/signup.js" type="text/javascript"></script>
     <script src="/fixhop/views/renderers/signup.js" type="text/javascript"></script>
+    <script src="/fixhop/views/controllers/cart.js" type="text/javascript"></script>
+    <script src="/fixhop/views/renderers/cart.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(function () {
-            var promises = [View.loadPartial('navbar-partial'), View.loadPartial('product-partial'), View.loadPartial('footer-partial'), View.loadPartial('message-partial')];
+            var promises = [View.loadPartial('navbar-partial'), View.loadPartial('product-partial'), View.loadPartial('footer-partial'), View.loadPartial('message-partial'), View.loadPartial('cart-product-partial')];
 
             Promise.all(promises)
                 .then(function () {

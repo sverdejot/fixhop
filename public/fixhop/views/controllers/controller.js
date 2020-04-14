@@ -21,6 +21,9 @@ Controller.router.route = function() {
     else if (matching = path.match(/^\/fixhop\/views\/signup$/)) {
         Controller.controllers.signup.refresh();
     }
+    else if (matching = path.match(/^\/fixhop\/views\/cart$/)) {
+        Controller.controllers.cart.refresh();
+    }
     else
     {
         console.error('controller.js: route() - Page not found')
