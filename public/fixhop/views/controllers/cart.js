@@ -47,13 +47,6 @@ Controller.controllers.cart.removeAllProducts_onclick = function(event, product_
 };
 
 Controller.controllers.cart.proceedToCheckout_onclick = function(event) {
-    Model.checkout()
-        .then(function(sucess, order_number) {
-            Controller.messages.pushIngo(sucess);
-            Controller.controllers.router.go('orders/' + order_number);
-        })
-        .catch(function (err) {
-            Controller.errors.pushError(err);
-            Controller.controllers.cart.refresh();
-        })
+    event.preventDefault();
+    Controller.router.go('purchase')
 };

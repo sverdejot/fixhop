@@ -27,4 +27,9 @@ Controller.controllers.navbar.signout_clicked = function(event) {
 Controller.controllers.navbar.view_cart = function(event) {
     event.preventDefault();
     Controller.router.go(event.target.href);
-}
+};
+
+Controller.controllers.navbar.proceedToCheckout_clicked = function(event) {
+    event.preventDefault();
+    Controller.router.go(event.target.href);
+};

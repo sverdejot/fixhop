@@ -13,8 +13,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="orderDateLabel">Fecha</span>
                                     </div>
-                                    <input type="text" class="form-control bg-white" id="orderDate"
-                                        aria-describedby="orderDateLabel" placeholder="dd/mm/aaaa" readonly>
+                                    <input type="date" class="form-control bg-white" id="orderDate"
+                                        aria-describedby="orderDateLabel" value="{{date}}" readonly>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -22,13 +22,13 @@
                                             envío</span>
                                     </div>
                                     <input type="text" class="form-control" id="deliverAddress"
-                                        aria-describedby="deliverAddressLabel">
+                                        aria-describedby="deliverAddressLabel" value="{{user.address}}">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="cardNumberLabel">Nº de tarjeta</span>
                                     </div>
-                                    <input type="text" class="form-control" id="deliverAddress"
+                                    <input type="text" class="form-control" id="cardNumber"
                                         aria-describedby="cardNumberLabel">
                                 </div>
                                 <div class="input-group mb-3">
@@ -56,8 +56,8 @@
                                         <th scope="col">Total</th>
                                     </thead>
                                     <tbody>
-                                        {{#each order.items}}
-                                            {{> purchase-product-partial this}}
+                                        {{#each cart.items}}
+                                        {{> purchase-product-partial this}}
                                         {{/each}}
                                     </tbody>
                                 </table>
@@ -67,9 +67,16 @@
                     <div class="border-top my-3"></div>
                     <div class="row justify-content-end mb-3 mr-3">
                         <div class="col text-right">
-                            <h3>Subtotal: {{formatPrice order.subtotal}}</h3>
-                            <h3>IVA: {{order.tax}}</h3>
-                            <h3>Total: {{formatPrice order.total}}</h3>
+                            <h3>Subtotal: {{formatPrice cart.subtotal}}</h3>
+                            <h3>IVA: {{cart.tax}}</h3>
+                            <h3>Total: {{formatPrice cart.total}}</h3>
+                        </div>
+                    </div>
+                    <div class="border-top my-3"></div>
+                    <div class="row mt-3">
+                        <div class="col text-center">
+                            <button class="btn btn-outline-success"
+                                onclick="Controller.controllers.purchase.checkout_onclick(event)">Confirmar pedido</button>
                         </div>
                     </div>
                 </div>
