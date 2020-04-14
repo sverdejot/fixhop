@@ -56,12 +56,9 @@
                                         <th scope="col">Total</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">Leader 721</th>
-                                            <td>1</td>
-                                            <td>595.95€</td>
-                                            <td>595.95€</td>
-                                        </tr>
+                                        {{#each order.items}}
+                                            {{> purchase-product-partial this}}
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>
@@ -70,9 +67,9 @@
                     <div class="border-top my-3"></div>
                     <div class="row justify-content-end mb-3 mr-3">
                         <div class="col text-right">
-                            <h3>Subtotal: 595.95€</h3>
-                            <h3>IVA: 125.15€</h3>
-                            <h3>Total: 721.10€</h3>
+                            <h3>Subtotal: {{formatPrice order.subtotal}}</h3>
+                            <h3>IVA: {{order.tax}}</h3>
+                            <h3>Total: {{formatPrice order.total}}</h3>
                         </div>
                     </div>
                 </div>
@@ -80,5 +77,4 @@
         </div>
     </div>
 </div>
-
 {{> footer-partial}}

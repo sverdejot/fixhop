@@ -40,10 +40,18 @@
     <script src="/fixhop/views/renderers/signup.js" type="text/javascript"></script>
     <script src="/fixhop/views/controllers/cart.js" type="text/javascript"></script>
     <script src="/fixhop/views/renderers/cart.js" type="text/javascript"></script>
+    <script src="/fixhop/views/controllers/purchase.js" type="text/javascript"></script>
+    <script src="/fixhop/views/renderers/purchae.js" type="text/javascript"></script>
+    
 
     <script type="text/javascript">
         $(function () {
-            var promises = [View.loadPartial('navbar-partial'), View.loadPartial('product-partial'), View.loadPartial('footer-partial'), View.loadPartial('message-partial'), View.loadPartial('cart-product-partial')];
+            var promises = [View.loadPartial('navbar-partial'), 
+                            View.loadPartial('product-partial'), 
+                            View.loadPartial('footer-partial'), 
+                            View.loadPartial('message-partial'), 
+                            View.loadPartial('cart-product-partial'),
+                            View.loadPartial('purchase-product-partial')];
 
             Promise.all(promises)
                 .then(function () {
