@@ -21,7 +21,7 @@ Controller.controllers.navbar.signout_clicked = function(event) {
     Model.signout()
         .then(function() {
             Controller.router.route('index');
-        })
+        });
 };
 
 Controller.controllers.navbar.view_cart = function(event) {
@@ -30,6 +30,11 @@ Controller.controllers.navbar.view_cart = function(event) {
 };
 
 Controller.controllers.navbar.proceedToCheckout_clicked = function(event) {
+    event.preventDefault();
+    Controller.router.go(event.target.href);
+};
+
+Controller.controllers.navbar.profile_clicked = function(event) {
     event.preventDefault();
     Controller.router.go(event.target.href);
 };

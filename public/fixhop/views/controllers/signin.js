@@ -27,6 +27,6 @@ Controller.controllers.signin.signin_clicked = function() {
             Controller.messages.pushError(err);
         })
         .finally(function() {
-            Controller.router.go('index');
+            Controller.router.go('/fixhop/views/index');
         });
 }
