@@ -253,4 +253,36 @@ Model.removeAllProduct = function(product_id) {
                 resolve('Producto eliminado satisfactoriamente')                
             })
     });
+};
+
+Model.checkout = function(order) {
+    return new Promise(function(resolve, reject) {
+        var promises = [Model.getShoppingCart(), Model.getLoggedUser()]
+        Promise.all(promises)
+            .then(function([cart, user]) {
+                order.id = Date.now();
+                order.items = cart.items;
+                order.subtotal = cart.subtotal;
+                order.tax = cart.tax;
+                order.total = cart.total;
+
+                user.orders.push(order);
+                user.shopping_cart = {
+                    items: [],
+                    total: 0,
+                    subtotal: 0,
+                    tax: cart.tax
+                };
+                resolve(order.id);
+            });
+    });
+};
+
+Model.getOrder = function(order_id) {
+    return new Promise(function(resolve, reject) {
+        Model.getLoggedUser()
+            .then(function(user) {
+                for (let order of user.orders) if (order.id == order_id) resolve(order);
+            })
+    })
 }

@@ -14,3 +14,25 @@ Controller.controllers.purchase.refresh = function() {
             View.renderer.purchase.render(context);
         })
 };
+
+Controller.controllers.purchase.checkout_onclick = function(event) {
+    event.preventDefault();
+
+    let order = {
+        date: $("#orderDate").val(),
+        address: $("#deliverAddress").val(),
+        cardNumber: $("#cardNumber").val(),
+        cardHolder: $("#cardHolder").val()
+    };
+
+    Model.checkout(order)
+        .then(function(order_number) {
+            Controller.messages.pushInfo("Pedido procesado satisfactoriamente");
+            Controller.router.go('order/' + order_number);
+        })
+        .catch(function (err) {
+            console.log(err)
+            Controller.messages.pushError(err);
+            Controller.controllers.purchase.refresh();
+        });
+}

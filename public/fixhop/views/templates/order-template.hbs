@@ -1,0 +1,94 @@
+{{> message-partial}}
+{{> navbar-partial user=user cartItemCount=cartItemCount}}
+<div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col col-xl-9 col-md-12">
+                    <div class="card mb-3">
+                        <h3 class="card-header text-center">Detalles del pedido</h3>
+                        <div class="card-body mb-3">
+                            <div class="card-text">
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="orderNumberLabel">Nº de pedido</span>
+                                            </div>
+                                            <input type="text" class="form-control bg-white" id="orderNumber"
+                                                aria-describedby="orderNumberLabel" value="{{order.id}}" readonly>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="dateLabel">Fecha de
+                                                    confirmación</span>
+                                            </div>
+                                            <input type="text" class="form-control bg-white" id="date"
+                                                aria-describedby="dateLabel" value="{{order.date}}" readonly>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="deliverAddressLabel">Dirección de
+                                                    envío</span>
+                                            </div>
+                                            <input type="text" class="form-control bg-white" id="deliverAddress"
+                                                aria-describedby="deliverAddressLabel" value="{{order.address}}" readonly>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-md-6 col-sm-12">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="cardNumber">Nº de tarjeta</span>
+                                                    </div>
+                                                    <input type="text" class="form-control bg-white" value="{{order.cardNumber}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col col-md-6 col-sm-12">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Nombre del titular</span>
+                                                    </div>
+                                                    <input type="text" class="form-control bg-white" value="{{order.cardHolder}}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row text-center mb-3">
+                            <div class="col">
+                                <h2 class="mt-2 mb-4">Lista de productos</h2>
+                                <div class="table-responsive">
+
+                                    <table class="table">
+                                        <thead>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Precio unitario</th>
+                                            <th scope="col">Total</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                {{#each order.items}}
+                                                    {{> tab-product-partial this}}
+                                                {{/each}}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top my-3"></div>
+                        <div class="row justify-content-end mb-3 mr-3">
+                            <div class="col text-right">
+                                <h3>Subtotal: {{formatPrice order.subtotal}}</h3>
+                                <h3>IVA: {{calculateTaxes order.subtotal order.tax}}</h3>
+                                <h3>Total: {{formatPrice order.total}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{{> footer-partial}}
