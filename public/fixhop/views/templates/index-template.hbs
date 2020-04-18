@@ -4,8 +4,28 @@
     <div class="display-4 mt-3 text-center">Más buscados</div>
     <div class="row">
         {{#each products}}
-            {{> product-partial this addToCart_onclick="Controller.controllers.index.addToCart_clicked"}}
+            {{> product-partial user=../user product=this addToCart_onclick="Controller.controllers.index.addToCart_clicked"}}
         {{/each}}
     </div>
 </div>
+
+<div class="modal fade" id="notLoggedIn" tabindex="-1" role="dialog" aria-labelledby="notLoggedInLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notLoggedInLabel">No hay ninguna sesión activa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Debes iniciar sesión para añadir productos a la cesta
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{> footer-partial}}

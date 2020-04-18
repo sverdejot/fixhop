@@ -17,7 +17,13 @@
                             <span class="input-group-text bg-white" id="priceCinelli">{{formatPrice price}}</span>
                         </div>
                         <div class="input-group-append">
-                            <button class="btn btn-outline-success" type="button" onclick="{{addToCart_onclick}}(event, {{id}})">Añadir</button>
+                            {{#if user}}
+                            <button class="btn btn-outline-success" type="button"
+                                onclick="{{addToCart_onclick}}(event, {{id}})">Añadir</button>
+                            {{else}}
+                            <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                data-target="#notLoggedIn">Añadir</button>
+                            {{/if}}
                         </div>
                     </div>
                 </div>

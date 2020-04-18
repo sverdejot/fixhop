@@ -51,8 +51,14 @@
                     <span class="badge badge-secondary">{{cartItemCount}}</span>
                     </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cartDropdown">
-                    <a class="dropdown-item" href="cart" onclick="Controller.controllers.navbar.view_cart(event)">Ver</a>
-                    <a class="dropdown-item" href="purchase" onclick="Controller.controllers.navbar.proceedToCheckout_clicked(event)">Procesar pedido</a>
+                    {{#if user}}
+                        <a class="dropdown-item" href="cart" onclick="Controller.controllers.navbar.view_cart(event)">Ver</a>
+                        <a class="dropdown-item" href="purchase" onclick="Controller.controllers.navbar.proceedToCheckout_clicked(event)">Procesar pedido</a>
+                    {{else}}
+                        <a class="dropdown-item disabled" href="cart" onclick="Controller.controllers.navbar.view_cart(event)">Ver</a>
+                        <a class="dropdown-item disabled" href="purchase" onclick="Controller.controllers.navbar.proceedToCheckout_clicked(event)">Procesar pedido</a>
+                    {{/if}}
+                    
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -60,11 +66,11 @@
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario&nbsp;</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     {{#if user}}
-                    <a class="dropdown-item" href="/fixhop/views/profile" onclick="Controller.controllers.navbar.profile_clicked(event)">Perfil</a>
-                    <a class="dropdown-item" href="#" onclick="Controller.controllers.navbar.signout_clicked(event)">Cerrar sesión</a>
+                        <a class="dropdown-item" href="/fixhop/views/profile" onclick="Controller.controllers.navbar.profile_clicked(event)">Perfil</a>
+                        <a class="dropdown-item" href="#" onclick="Controller.controllers.navbar.signout_clicked(event)">Cerrar sesión</a>
                     {{else}}
-                    <a class="dropdown-item" href="/fixhop/views/signin" onclick="Controller.controllers.navbar.signin_clicked(event)">Iniciar sesión</a>
-                    <a class="dropdown-item" href="/fixhop/views/signup" onclick="Controller.controllers.navbar.signup_clicked(event)">Registro</a>
+                        <a class="dropdown-item" href="/fixhop/views/signin" onclick="Controller.controllers.navbar.signin_clicked(event)">Iniciar sesión</a>
+                        <a class="dropdown-item" href="/fixhop/views/signup" onclick="Controller.controllers.navbar.signup_clicked(event)">Registro</a>
                     {{/if}}
                 </div>
             </li>

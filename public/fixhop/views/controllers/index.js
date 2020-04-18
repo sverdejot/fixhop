@@ -26,4 +26,4 @@ Controller.controllers.index.addToCart_clicked = function (event, product_id) {
         .finally(function() {
             Controller.controllers.index.refresh();
         })
-}
+};
