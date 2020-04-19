@@ -1,4 +1,6 @@
-{{> message-partial}}
+{{#if message}}
+{{> message-partial message}}
+{{/if}}
 {{> navbar-partial user=user cartItemCount=cartItemCount}}
 <div class="container-fluid">
     <div class="row justify-content-center">

@@ -108,7 +108,7 @@ Model.getProduct = function (product_id) {
 Model.getShoppingCart = function () {
     return new Promise(function (resolve, reject) {
         Model.getLoggedUser()
-            .then(function(user) {
+            .then(function (user) {
                 (user != null) ? resolve(user.shopping_cart) : resolve({ items: [] });
             })
     });
@@ -130,7 +130,7 @@ Model.cartItemCount = function () {
 
 Model.addToCart = function (product_id) {
     return new Promise(function (resolve, reject) {
-        var promises = [Model.getProduct(product_id), Model.getShoppingCart()]
+        var promises = [Model.getProduct(product_id), Model.getShoppingCart()];
 
         Promise.all(promises)
             .then(function (result) {
@@ -152,7 +152,7 @@ Model.addToCart = function (product_id) {
                         qty: 1,
                         total: product.price,
                         subtotal: product.price
-                    })
+                    }) 
                 };
 
                 shopping_cart.subtotal += product.price;
@@ -163,26 +163,29 @@ Model.addToCart = function (product_id) {
     });
 };
 
-Model.signin = function(credentials) {
+Model.signin = function (credentials) {
     return new Promise(function (resolve, reject) {
         for (let user of Model.users) {
-            if (user.email == credentials.email && user.password == credentials.password) {
-                Model.user = user.id;
-                resolve(Model.user);
+            if (user.email == credentials.email) {
+                if (user.password == credentials.password) {
+                    Model.user = user.id;
+                    resolve(Model.user);
+                }
+                else reject("PASSWORD_NOT_MATCHING")
             }
         }
         reject("USER_NOT_FOUND")
     });
 };
 
-Model.signout = function() {
+Model.signout = function () {
     return new Promise(function (resolve, reject) {
         Model.user = null;
         resolve(Model.user);
     });
 }
 
-Model.signup = function(new_user) {
+Model.signup = function (new_user) {
     return new Promise(function (resolve, reject) {
         var isEmpty = Object.values(new_user).every(input_field => (input_field === null || input_field === ''));
         var passwordNotMatching = (new_user.password == new_user.repeatPassword);
@@ -208,7 +211,7 @@ Model.signup = function(new_user) {
                     tax: 1.21,
                     items: []
                 }
-            }           
+            }
 
             Model.users.push(user);
             resolve('Usuario registrado satisfactoriamente.')
@@ -216,17 +219,17 @@ Model.signup = function(new_user) {
     });
 };
 
-Model.removeOneProduct = function(product_id) {
-    return new Promise(function(resolve, reject) {
+Model.removeOneProduct = function (product_id) {
+    return new Promise(function (resolve, reject) {
         Model.getShoppingCart()
-            .then(function(cart) {
+            .then(function (cart) {
                 for (let item of cart.items) {
                     if (item.product.id == product_id) {
                         if (item.qty == 1) {
-                            cart.items = cart.items.filter(_item => { return _item.product.id != product_id});
+                            cart.items = cart.items.filter(_item => { return _item.product.id != product_id });
                         } else {
                             item.qty -= 1;
-                            item.total -= product.price;                            
+                            item.total -= product.price;
                         }
                         cart.subtotal -= item.product.price;
                         cart.total = cart.subtotal * cart.tax;
@@ -238,10 +241,10 @@ Model.removeOneProduct = function(product_id) {
     });
 };
 
-Model.removeAllProduct = function(product_id) {
-    return new Promise(function(resolve, reject) {
+Model.removeAllProduct = function (product_id) {
+    return new Promise(function (resolve, reject) {
         Model.getShoppingCart()
-            .then(function(cart) {
+            .then(function (cart) {
                 for (let item of cart.items) {
                     if (item.product.id == product_id) {
                         cart.subtotal -= (item.product.price * item.qty);
@@ -250,16 +253,16 @@ Model.removeAllProduct = function(product_id) {
                     }
                 }
                 cart.items = cart.items.filter(_item => { return _item.product.id != product_id });
-                resolve('Producto eliminado satisfactoriamente')                
+                resolve('Producto eliminado satisfactoriamente')
             })
     });
 };
 
-Model.checkout = function(order) {
-    return new Promise(function(resolve, reject) {
+Model.checkout = function (order) {
+    return new Promise(function (resolve, reject) {
         var promises = [Model.getShoppingCart(), Model.getLoggedUser()]
         Promise.all(promises)
-            .then(function([cart, user]) {
+            .then(function ([cart, user]) {
                 order.id = Date.now();
                 order.items = cart.items;
                 order.subtotal = cart.subtotal;
@@ -278,10 +281,10 @@ Model.checkout = function(order) {
     });
 };
 
-Model.getOrder = function(order_id) {
-    return new Promise(function(resolve, reject) {
+Model.getOrder = function (order_id) {
+    return new Promise(function (resolve, reject) {
         Model.getLoggedUser()
-            .then(function(user) {
+            .then(function (user) {
                 for (let order of user.orders) if (order.id == order_id) resolve(order);
             })
     })
