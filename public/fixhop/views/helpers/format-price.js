@@ -1,3 +1,3 @@
 Handlebars.registerHelper('formatPrice', function(price){
-    return parseFloat(price).toLocaleString('es-ES') + '€';
+    return (price != 0) ? parseFloat(Math.round(price * 100) / 100).toLocaleString('es-ES') + '€' : "0€";
 })

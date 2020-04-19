@@ -171,7 +171,7 @@ Model.signin = function(credentials) {
                 resolve(Model.user);
             }
         }
-        reject('User not found or invalid credentials')
+        reject("USER_NOT_FOUND")
     });
 };
 

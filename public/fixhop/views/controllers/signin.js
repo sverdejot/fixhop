@@ -22,11 +22,23 @@ Controller.controllers.signin.signin_clicked = function() {
     Model.signin(credentials)
         .then(function (result) {
             Controller.messages.pushInfo(result);
+            Controller.router.go('/fixhop/views/index');
         })
         .catch(function(err) {
-            Controller.messages.pushError(err);
-        })
-        .finally(function() {
-            Controller.router.go('/fixhop/views/index');
+            if (err == "USER_NOT_FOUND") {
+                var message = {
+                    title: "Error: usuario no encontrado",
+                    description: "No existe una cuenta para el email introducido."
+                };
+                var reloadSignin = Promise.resolve(View.renderer.signin.render({message: message}));
+
+                reloadSignin.then(function() {
+                    $("#messagesModal").modal('show');
+                    $("#messagesModal").on('hidden.bs.modal', function() {
+                        Controller.controllers.signin.refresh();
+                    });
+                });
+            }
+            
         });
 }

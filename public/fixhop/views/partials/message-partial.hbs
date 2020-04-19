@@ -2,26 +2,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="messagesModalLabel">Información</h5>
+                <h5 class="modal-title" id="messagesModalLabel">{{title}}</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                {{#if errors}}
-                <ul>
-                    {{#each errors}}
-                    <li style="color:red;">{{this}}</li>
-                    {{/each}}
-                </ul>
-                {{/if}}
-                {{#if infos}}
-                <ul>
-                    {{#each infos}}
-                    <li style="color:green;">{{this}}</li>
-                    {{/each}}
-                </ul>
-                {{/if}}
+                {{description}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
