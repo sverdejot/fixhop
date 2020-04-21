@@ -167,9 +167,8 @@ Model.signin = function (credentials) {
     return new Promise(function (resolve, reject) {
         for (let user of Model.users) {
             if (user.email == credentials.email) {
-                if (user.password == credentials.password) {
-                    Model.user = user.id;
-                    resolve(Model.user);
+                if (user.password == credentials.password) {                    
+                    resolve(Model.user = user.id);
                 }
                 else reject("PASSWORD_NOT_MATCHING")
             }
@@ -214,7 +213,7 @@ Model.signup = function (new_user) {
             }
 
             Model.users.push(user);
-            resolve('Usuario registrado satisfactoriamente.')
+            resolve(user);
         }
     });
 };
