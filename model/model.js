@@ -1,5 +1,7 @@
 var Model = {};
 
+var Product = require('./product');
+
 Model.products = [
     {
         id: 0,
@@ -90,19 +92,11 @@ Model.getLoggedUser = function () {
 };
 
 Model.getProducts = function () {
-    return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-            resolve(Model.products);
-        }, 1000);
-    })
+    return Product.find();
 };
 
 Model.getProduct = function (product_id) {
-    return new Promise(function (resolve, reject) {
-        for (let product of Model.products) {
-            if (product.id == product_id) resolve(product);
-        }
-    });
+    return Product.find({_id: product_id});
 };
 
 Model.getShoppingCart = function () {
