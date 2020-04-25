@@ -1,65 +1,10 @@
 var Model = {};
 
 var Product = require('./product');
-
-Model.products = [
-    {
-        id: 0,
-        name: 'Leader 721',
-        description: 'Diseñada especialmente para ser usada en entornos urbanos, la bicicleta fixie Leader 721 2016 ofrece tanto funcionalidad como comodidad, gracias a su ligereza, y es perfecta para aquellos ciclistas que busquen un acabado impecable y de buen gusto.',
-        url: '/images/products/leader721.png',
-        price: 595.95
-    },
-    {
-        id: 1,
-        name: 'Aventon Mataró',
-        description: 'La bicicleta de pista Aventon Mataro ya es un clásico de las bicicletas de piñón fijo. Pero no uno de esos clásicos aburridos! Al contrario, es perfecta para el ciclista que busca que su corazón palpite mientras sortea el tráfico.',
-        url: '/images/products/mataro.png',
-        price: 595.95
-    },
-    {
-        id: 2,
-        name: 'BLB La Piovra ATK',
-        description: 'La bicicleta de pista La Piovra ATK es para los que buscan ligereza, belleza y calidad. Este nuevo cuadro tiene las soldaduras suaves, el tubo superior inclinado para darle más agresividad a la bici y permite una posición más aerodinámica del ciclista.',
-        url: '/images/products/lapiovra.png',
-        price: 765.95
-    },
-    {
-        id: 3,
-        name: 'Polo&bike Williamsburg',
-        description: ' Originalidad creada con calidad que constituye nuestra aportación a tu diversión. Nuestras bicicletas fixed y sus componentes nacen con la intención de aportar nuevas maneras de vivir. Polo & Bike es un estilo de vida nuevo, sano y deportivo.',
-        url: '/images/products/williamsburg.png',
-        price: 895.95
-    },
-    {
-        id: 4,
-        name: 'BLB Notorious Disc',
-        description: 'Cualquier ciclista experimentado sentirá de inmediato la diferencia en la capacidad de respuesta y la rigidez al utilizar esta rueda. Su tamaño es 700c, es decir es compatible con todas las ruedas de bicicleta de carretera. Puedes ponerle cubiertas de 23 y de 25.',
-        url: '/images/products/notorious-disc.png',
-        price: 999.95
-    },
-    {
-        id: 5,
-        name: 'BLB Notorious 90',
-        description: 'La llanta Notorious está hecha 100% de carbono 3k y tiene 90mm de perfil. Es una llanta ultraligera para el perfil tan alto que tiene. Y puedes tener tu rueda eligiendo entre 2 bujes: el BLB King de alta calidad y el BLB Track, que harán que la calidad y el precio final varíen.',
-        url: '/images/products/notorious-90.png',
-        price: 395.95
-    },
-    {
-        id: 6,
-        name: 'HED 3 H3 Track',
-        description: 'Desde el año 1984 Steve Hed ha dedicado su vida a desarrollar las mejores ruedas para ciclismo de alta competición. Cuando se trata de ruedas, estas tienen que ser lo más rápidas posibles, que aunque parece fácil, hacer las ruedas más rápidas del mundo es complicado.',
-        url: '/images/products/hed3-jet.png',
-        price: 1795.95
-    },
-    {
-        id: 7,
-        name: 'Cinelli Mash Bullhorn',
-        description: 'Cinelli es una de las marcas más reconocidas a nivel mundial como fabricante de bicicletas y componentes. Fue fundada en 1948 por Cino Cinelli (1916-2001), que fue ciclista profesional y presidente de la Asociación de Ciclistas Italianos.',
-        url: '/images/products/cinelli-mash.png',
-        price: 105.95
-    }
-];
+var Item = require('./item');
+var Cart = require('./cart');
+var Order = require('./order');
+var User = require('./user')
 
 Model.users = [
     {
@@ -82,30 +27,24 @@ Model.users = [
 
 Model.user = null;
 
-Model.getLoggedUser = function () {
-    return new Promise(function (resolve, reject) {
-        for (let user of Model.users) {
-            if (user.id == Model.user) resolve(user);
-        }
-        resolve(null);
-    });
-};
-
 Model.getProducts = function () {
     return Product.find();
 };
 
 Model.getProduct = function (product_id) {
-    return Product.find({_id: product_id});
+    return Product.findById(product_id);
 };
 
-Model.getShoppingCart = function () {
-    return new Promise(function (resolve, reject) {
-        Model.getLoggedUser()
-            .then(function (user) {
-                (user != null) ? resolve(user.shopping_cart) : resolve({ items: [] });
+Model.getShoppingCart = function (user_id) {
+    return User.findById(user_id)
+        .then(user => {
+            return Cart.findById(user.cart).populate({
+                path: 'items',
+                populate: {
+                    path: 'product'
+                }
             })
-    });
+        });
 };
 
 Model.cartItemCount = function () {
@@ -121,7 +60,7 @@ Model.cartItemCount = function () {
             });
     });
 };
-
+/*
 Model.addToCart = function (product_id) {
     return new Promise(function (resolve, reject) {
         var promises = [Model.getProduct(product_id), Model.getShoppingCart()];
@@ -146,7 +85,7 @@ Model.addToCart = function (product_id) {
                         qty: 1,
                         total: product.price,
                         subtotal: product.price
-                    }) 
+                    })
                 };
 
                 shopping_cart.subtotal += product.price;
@@ -155,13 +94,13 @@ Model.addToCart = function (product_id) {
                 resolve(shopping_cart);
             })
     });
-};
+};*/
 
 Model.signin = function (credentials) {
     return new Promise(function (resolve, reject) {
         for (let user of Model.users) {
             if (user.email == credentials.email) {
-                if (user.password == credentials.password) {                    
+                if (user.password == credentials.password) {
                     resolve(Model.user = user.id);
                 }
                 else reject("PASSWORD_NOT_MATCHING")
@@ -180,35 +119,34 @@ Model.signout = function () {
 
 Model.signup = function (new_user) {
     return new Promise(function (resolve, reject) {
-        var isEmpty = Object.values(new_user).every(input_field => (input_field === null || input_field === ''));
-        var passwordNotMatching = (new_user.password == new_user.repeatPassword);
-
-        if (isEmpty || passwordNotMatching) {
-            reject('Todos los campos deben ser rellenados y las contraseñas deben coincidir.')
-        } else {
-            for (let user of Model.users) {
-                if (new_user.email == user.email) reject('Ya hay un usuario registrado para este correo electrónico.')
-            }
-            let user = {
-                id: Date.now(),
-                name: new_user.name,
-                surname: new_user.surname,
-                email: new_user.email,
-                birth: new_user.birth,
-                address: new_user.address,
-                password: new_user.password,
-                orders: [],
-                shopping_cart: {
-                    total: 0,
-                    subtotal: 0,
-                    tax: 1.21,
-                    items: []
+        User.findOne({ email: new_user.email })
+            .then(user => {
+                if (user != null) {
+                    return reject('Ya hay un usuario registrado con esta dirección de correo electrónico.')
+                } else {
+                    return new Cart().save().then(cart => {
+                        return User({
+                            name: new_user.name,
+                            surname: new_user.surname,
+                            email: new_user.email,
+                            birth: new_user.birth,
+                            address: new_user.address,
+                            password: new_user.password,
+                            cart: cart,
+                            orders: [],
+                        }).save()
+                            .then(user => {
+                                return resolve(user)
+                            })
+                            .catch(err => {
+                                return reject(err)
+                            });
+                    })
+                        .catch(err => {
+                            return reject(err);
+                        })
                 }
-            }
-
-            Model.users.push(user);
-            resolve(user);
-        }
+            })
     });
 };
 
@@ -285,41 +223,46 @@ Model.getOrder = function (order_id) {
 
 // ReST API neccesary methods
 
-Model.getUser = function(uid) {
-    return new Promise (function (resolve, reject) {
-        for (let user of Model.users) {
-            if (user.id == uid) resolve(user);
-        };
-    });
+Model.getUser = function (uid) {
+    return User.findOne(uid);
 };
 
-Model.addToCart = function(uid, product) {
+Model.addToCart = function (uid, pid) {
     return new Promise(function (resolve, reject) {
-        Model.getUser(uid)
-            .then(function(user) {
-                for (let item of user.shopping_cart.items) {
-                    if (item.product.id == product.id) {
-                        ++item.qty;
-                        item.total += product.price;
-                        var already_added = true;
-                        break;
-                    }
-                };
+        let promises = [User.findById(uid).populate('cart'), Product.findById(pid)];
 
-                if (!already_added) {
-                    user.shopping_cart.items.push({
-                        product: product,
-                        qty: 1,
-                        total: product.price,
-                        subtotal: product.price
-                    }) 
-                };
+        Promise.all(promises)
+            .then(([user, product]) => {
+                return Promise.all(user.cart.items.map(item => Item.findOne({ _id: item._id, product: product }).populate('product')))
+                    .then(items => {
+                        for (let item of items)
+                            if (item != null) {
+                                item.qty += 1;
+                                return item.save()
+                                    .then(item => {
+                                        user.cart.subtotal += item.total;
+                                        user.cart.total = user.cart.subtotal * user.cart.tax;
+                                        return user.cart.save();
+                                    });
+                            }
+                        return new Item(
+                            {
+                                product: product,
+                                qty: 1,
+                                total: product.price,
+                                subtotal: product.price
+                            }).save()
+                            .then(item => {
+                                user.cart.items.push(item);
+                                user.cart.subtotal += item.total;
+                                user.cart.total = user.cart.subtotal * user.cart.tax;
+                                return user.cart.save();
+                            })
 
-                user.shopping_cart.subtotal += product.price;
-                user.shopping_cart.total = user.shopping_cart.subtotal * user.shopping_cart.tax;
-
-                resolve(user);
-            });
+                    })
+            })
+            .then(cart => resolve(cart))
+            .catch(err => reject(err));
     });
 };
 

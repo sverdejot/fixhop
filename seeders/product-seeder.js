@@ -1,5 +1,5 @@
 var db = require('../config/db');
-var Product = require('../model/product')
+var Product = require('../model/product');
 
 var products = [
     {
@@ -53,17 +53,11 @@ var products = [
 ];
 
 Promise.all(products.map(product => new Product(product).save()))
-    .then(function() {
+    .then(() => {
         return Product.find()
     })
-    .then(function(products) {
-        for (let product of products) console.log('Product [' + product.name + '] added to DB');
-    })
-    .catch(function(err) {
-        console.error(err);
-    })
-    .finally(() => {
-        db.close()
+    .then(products => { 
+        for (let product of products) console.log('Product [' + product.name + '] added to DB')
     })
     .catch(err => console.error(err));
 

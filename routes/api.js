@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 
 // GET: products
 
-router.get('/products', function(req, res, next) {
+router.get('/products', function (req, res, next) {
     model.getProducts()
         .then(products => res.json(products))
         .catch(err => {
@@ -53,19 +53,12 @@ router.get('/users/:uid/cart/items', function (req, res, next) {
 // POST: add product to cart
 
 router.post('/users/:uid/cart/items/:pid', function (req, res, next) {
-    model.getProduct(req.params.pid)
-        .then(product => {
-            model.addToCart(req.params.uid, product)
-                .then(result => res.json(result))
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).json(err);
-                })
-        })
+    model.addToCart(req.params.uid, req.params.pid)
+        .then(result => res.json(result))
         .catch(err => {
             console.error(err);
             res.status(500).json(err);
-        });
+        })
 });
 
 // DELETE: remove product from cart
@@ -139,7 +132,7 @@ router.get('/users/:uid/profile', function (req, res, next) {
 
 // GET: user orders
 
-router.get('/users/:uid/orders', function(req, res, next) {
+router.get('/users/:uid/orders', function (req, res, next) {
     model.getUser(req.params.uid)
         .then(user => res.json(user.orders))
         .catch(err => {
@@ -150,7 +143,7 @@ router.get('/users/:uid/orders', function(req, res, next) {
 
 // POST: order
 
-router.post('/users/:uid/orders', function(req, res, next) {
+router.post('/users/:uid/orders', function (req, res, next) {
     model.checkout(req.body)
         .then(order => res.json(order))
         .catch(err => {
@@ -159,10 +152,10 @@ router.post('/users/:uid/orders', function(req, res, next) {
         });
 });
 
-router.get('/users/:uid/orders/:number', function(req, res, next) {
+router.get('/users/:uid/orders/:number', function (req, res, next) {
     model.getUser(req.params.uid)
         .then(user => {
-            for (let order of user.orders) if(order.id == req.params.number) res.json(order); 
+            for (let order of user.orders) if (order.id == req.params.number) res.json(order);
         })
         .catch(err => {
             console.error(err);
@@ -170,10 +163,10 @@ router.get('/users/:uid/orders/:number', function(req, res, next) {
         });
 });
 
-router.get('/users/:uid/orders/:number/items', function(req, res, next) {
+router.get('/users/:uid/orders/:number/items', function (req, res, next) {
     model.getUser(req.params.uid)
         .then(user => {
-            for (let order of user.orders) if(order.id == req.params.number) res.json(order.items); 
+            for (let order of user.orders) if (order.id == req.params.number) res.json(order.items);
         })
         .catch(err => {
             console.error(err);
