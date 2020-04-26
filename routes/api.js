@@ -31,8 +31,8 @@ router.get('/products/:id', function (req, res, next) {
 // GET: shopping cart
 
 router.get('/users/:uid/cart', function (req, res, next) {
-    model.getUser(req.params.uid)
-        .then(user => res.json(user.shopping_cart))
+    model.getShoppingCart(req.params.uid)
+        .then(cart => res.json(cart))
         .catch(err => {
             console.error(err);
             res.status(500).json(err);
@@ -42,8 +42,8 @@ router.get('/users/:uid/cart', function (req, res, next) {
 // GET: shopping cart items
 
 router.get('/users/:uid/cart/items', function (req, res, next) {
-    model.getUser(req.params.uid)
-        .then(user => res.json(user.shopping_cart.items))
+    model.getShoppingCart(req.params.uid)
+        .then(cart => res.json(cart.items))
         .catch(err => {
             console.error(err);
             res.status(500).json(err);
@@ -144,7 +144,7 @@ router.get('/users/:uid/orders', function (req, res, next) {
 // POST: order
 
 router.post('/users/:uid/orders', function (req, res, next) {
-    model.checkout(req.body)
+    model.checkout(req.params.uid, req.body)
         .then(order => res.json(order))
         .catch(err => {
             console.error(err);
