@@ -17,7 +17,7 @@ Controller.router.route = function() {
     else if (matching = path.match(/^\/fixhop\/views\/signup$/)) Controller.controllers.signup.refresh();
     else if (matching = path.match(/^\/fixhop\/views\/cart$/)) Controller.controllers.cart.refresh();
     else if (matching = path.match(/^\/fixhop\/views\/purchase$/)) Controller.controllers.purchase.refresh();
-    else if (matching = path.match(/^\/fixhop\/views\/order\/([0-9]*)$/)) Controller.controllers.order.refresh(matching);
+    else if (matching = path.match(/^\/fixhop\/views\/order\/([a-zA-Z0-9]*)$/)) Controller.controllers.order.refresh(matching);
     else if (matching = path.match(/^\/fixhop\/views\/profile$/)) Controller.controllers.profile.refresh(matching);
     
     else console.error('controller.js: route() - Page not found')

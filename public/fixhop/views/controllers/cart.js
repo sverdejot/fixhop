@@ -1,7 +1,7 @@
 Controller.controllers.cart = {};
 
 Controller.controllers.cart.refresh = function () {
-    var promises = [Model.getLoggedUser(), Model.getShoppingCart(), Model.cartItemCount()];
+    var promises = [Model.getUser(Model.user), Model.getShoppingCart(Model.user), Model.cartItemCount(Model.user)];
 
     Promise.all(promises)
         .then(function(result) {
@@ -17,7 +17,7 @@ Controller.controllers.cart.refresh = function () {
 Controller.controllers.cart.removeOneProduct_onclick = function(event, product_id) {
     event.preventDefault();
 
-    Model.removeOneProduct(product_id)
+    Model.removeOneProduct(Model.user, product_id)
         .then(function (result) {
             Controller.messages.pushInfo(result);
         })
@@ -33,7 +33,7 @@ Controller.controllers.cart.removeOneProduct_onclick = function(event, product_i
 Controller.controllers.cart.removeAllProducts_onclick = function(event, product_id) {
     event.preventDefault();
 
-    Model.removeAllProduct(product_id)
+    Model.removeAllProduct(Model.user, product_id)
         .then(function (result) {
             Controller.messages.pushInfo(result);
         })

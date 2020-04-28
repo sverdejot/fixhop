@@ -1,7 +1,7 @@
 Controller.controllers.index = {};
 
 Controller.controllers.index.refresh = function() {
-    var promises = [Model.getLoggedUser(), Model.cartItemCount(), Model.getProducts()];
+    var promises = [Model.getUser(Model.user), Model.cartItemCount(Model.user), Model.getProducts()];
     Promise.all(promises)
         .then(function(result) {
             context = {};
@@ -16,7 +16,7 @@ Controller.controllers.index.refresh = function() {
 };
 
 Controller.controllers.index.addToCart_clicked = function (event, product_id) {
-    Model.addToCart(product_id)
+    Model.addToCart(Model.user, product_id)
         .then(function(result) {
             Controller.messages.pushInfo(result);
         })

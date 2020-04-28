@@ -1,7 +1,7 @@
 Controller.controllers.signup = {};
 
 Controller.controllers.signup.refresh = function () {
-    var promises = [Model.getLoggedUser(), Model.cartItemCount()];
+    var promises = [Model.getUser(Model.user), Model.cartItemCount(Model.user)];
 
     Promise.all(promises)
         .then(function (result) {
@@ -20,13 +20,14 @@ Controller.controllers.signup.signup_clicked = function (event) {
         name: $("#name").val(),
         surname: $("#surname").val(),
         address: $("#address").val(),
+        birth: $("#birth").val(),
         email: $("#email").val(),
         password: $("#password").val(),
         repeat_password: $("#repeatPassword").val()
     };
-
+    
     var fieldEmpty = Object.values(user).every(input_field => (input_field === null || input_field === ''));
-    var passwordNotMatching = (user.password != user.repeatPassword);
+    var passwordNotMatching = (user.password != user.repeat_password);
     var emailInvalid = !(user.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/));
     var reloadSignup = function (msg) {
         Promise.resolve(View.renderer.signup.render({ message: msg }));

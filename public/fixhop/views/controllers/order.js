@@ -1,7 +1,7 @@
 Controller.controllers.order = {};
 
 Controller.controllers.order.refresh = function(matching) {
-    var promises = [Model.getLoggedUser(), Model.getShoppingCart(), Model.cartItemCount(), Model.getOrder(matching[1])];
+    var promises = [Model.getUser(Model.user), Model.getShoppingCart(Model.user), Model.cartItemCount(Model.user), Model.getOrder(Model.user, matching[1])];
 
     Promise.all(promises)
         .then(function([user, cart, cartItemCount, order]) {

@@ -37,18 +37,37 @@ Model.cartItemCount = function (uid) {
         })
 };
 
+// PROVISIONAL
 Model.signin = function (credentials) {
-    return new Promise(function (resolve, reject) {
-        for (let user of Model.users) {
-            if (user.email == credentials.email) {
-                if (user.password == credentials.password) {
-                    resolve(Model.user = user.id);
-                }
-                else reject("PASSWORD_NOT_MATCHING")
+    (credentials)
+    return User.findOne({ email: credentials.email }).populate({
+        path: 'cart',
+        model: 'Cart',
+        populate: {
+            path: 'items',
+            model: 'CartItem',
+            populate: {
+                path: 'product',
+                model: 'Product'
             }
         }
-        reject("USER_NOT_FOUND")
-    });
+    })
+        .populate({
+            path: 'orders',
+            model: 'Order',
+            populate: {
+                path: 'items',
+                model: 'CartItem',
+                populate: {
+                    path: 'product',
+                    model: 'Product'
+                }
+            }
+        })
+        .then(user => {
+            (user);
+            return user;
+        });
 };
 
 Model.signout = function () {
@@ -113,31 +132,11 @@ Model.checkout = function (uid, order) {
                                 })
                         })
                         .then(() => {
+                            (order)
                             return order;
                         });
                 })
         })
-
-    return new Promise(function (resolve, reject) {
-        var promises = [Model.getShoppingCart(), Model.getLoggedUser()]
-        Promise.all(promises)
-            .then(function ([cart, user]) {
-                order.id = Date.now();
-                order.items = cart.items;
-                order.subtotal = cart.subtotal;
-                order.tax = cart.tax;
-                order.total = cart.total;
-
-                user.orders.push(order);
-                user.shopping_cart = {
-                    items: [],
-                    total: 0,
-                    subtotal: 0,
-                    tax: cart.tax
-                };
-                resolve(order.id);
-            });
-    });
 };
 
 Model.getOrder = function (oid) {

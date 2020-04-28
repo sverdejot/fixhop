@@ -2,7 +2,7 @@ Controller.controllers.signin = {};
 
 Controller.controllers.signin.refresh = function () {
     var context = {};
-    var promises = [Model.getLoggedUser(), Model.cartItemCount()]
+    var promises = [Model.getUser(Model.user), Model.cartItemCount(Model.user)]
 
     Promise.all(promises)
         .then(function (result) {

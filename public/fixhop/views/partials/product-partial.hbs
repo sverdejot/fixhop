@@ -19,7 +19,7 @@
                         <div class="input-group-append">
                             {{#if user}}
                             <button class="btn btn-outline-success" type="button"
-                                onclick="{{addToCart_onclick}}(event, {{id}})">Añadir</button>
+                                onclick="{{addToCart_onclick}}(event, '{{_id}}')">Añadir</button>
                             {{else}}
                             <button type="button" class="btn btn-secondary" data-toggle="modal"
                                 data-target="#notLoggedIn">Añadir</button>

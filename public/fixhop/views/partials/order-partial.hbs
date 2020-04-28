@@ -1,6 +1,6 @@
 <tr>
     <th scope="row">{{date}}</th>
-    <td>{{id}}</td>
+    <td>{{_id}}</td>
     <td>{{formatPrice total}}</td>
-    <td><button class="btn btn-outline-info" onclick="{{orderDetails_onclick}}(event,  {{id}})">Detalles</button></td>
+    <td><button class="btn btn-outline-info" onclick="{{orderDetails_onclick}}(event,  '{{_id}}')">Detalles</button></td>
 </tr>

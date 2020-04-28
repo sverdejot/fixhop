@@ -9,8 +9,8 @@
                 Eliminar producto
             </button>
             <div class="dropdown-menu" aria-labelledby="productDropdown">
-                <a class="dropdown-item" href="#" onclick="{{removeOneProduct_onclick}}(event, {{product.id}})">Eliminar uno</a>
-                <a class="dropdown-item" href="#" onclick="{{removeAllProducts_onclick}}(event, {{product.id}})">Eliminar todos</a>
+                <a class="dropdown-item" href="#" onclick="{{removeOneProduct_onclick}}(event, '{{product._id}}')">Eliminar uno</a>
+                <a class="dropdown-item" href="#" onclick="{{removeAllProducts_onclick}}(event, '{{product._id}}')">Eliminar todos</a>
             </div>
         </div>
     </td>

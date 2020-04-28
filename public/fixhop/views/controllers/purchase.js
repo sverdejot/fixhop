@@ -1,7 +1,7 @@
 Controller.controllers.purchase = {};
 
 Controller.controllers.purchase.refresh = function() {
-    var promises = [Model.getLoggedUser(), Model.cartItemCount(), Model.getShoppingCart()];
+    var promises = [Model.getUser(Model.user), Model.cartItemCount(Model.user), Model.getShoppingCart(Model.user)];
 
     Promise.all(promises)
         .then(function(result) {
@@ -25,13 +25,12 @@ Controller.controllers.purchase.checkout_onclick = function(event) {
         cardHolder: $("#cardHolder").val()
     };
 
-    Model.checkout(order)
-        .then(function(order_number) {
+    Model.checkout(Model.user, order)
+        .then(function(oid) {
             Controller.messages.pushInfo("Pedido procesado satisfactoriamente");
-            Controller.router.go('order/' + order_number);
+            Controller.router.go('order/' + oid);
         })
         .catch(function (err) {
-            console.log(err)
             Controller.messages.pushError(err);
             Controller.controllers.purchase.refresh();
         });
