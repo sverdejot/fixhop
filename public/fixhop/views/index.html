@@ -48,24 +48,6 @@
     <script src="/fixhop/views/renderers/order.js" type="text/javascript"></script>
     <script src="/fixhop/views/controllers/profile.js" type="text/javascript"></script>
     <script src="/fixhop/views/renderers/profile.js" type="text/javascript"></script>
-    
-
-    <script type="text/javascript">
-        $(function () {
-            var promises = [View.loadPartial('navbar-partial'), 
-                            View.loadPartial('product-partial'), 
-                            View.loadPartial('footer-partial'), 
-                            View.loadPartial('message-partial'), 
-                            View.loadPartial('cart-product-partial'),
-                            View.loadPartial('tab-product-partial'),
-                            View.loadPartial('order-partial')];
-
-            Promise.all(promises)
-                .then(function () {
-                    Controller.router.route();
-                })
-        })
-    </script>
 </body>
 
 </html>
